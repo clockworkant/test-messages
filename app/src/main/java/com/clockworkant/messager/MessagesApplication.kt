@@ -13,7 +13,6 @@ class MessagesApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-//        dataRepo = DataRepoMemoryImpl()
         dataRepo = DataRepoJsonImpl(
                 assets.open("data.json").bufferedReader().use {
                     it.readText()

@@ -8,17 +8,20 @@ Requirements:
 6. Each message has a “Delete message” action that removes this message from UI and local database. It's up to you to decide how this action will be triggered.
 7. Each attachment has a “Delete attachment” action that removes only this attachment from UI and local database.
 8. `RecyclerView` should work in “stable ids mode” with `DefaultItemAnimator` working properly.
-9. `minSdkVersion=21`.
+~~9. `minSdkVersion=21`.~~
 
 Todo
 ===
 
 - Build graphical UI to without data
-- Recycler view with multiple types
+    - Separate user 0 rows from other users
+        - Avatar for non 0 user
+    - Render Attachments
+- fetch items on background thread
 - Delete action - remove item from db and from list. Probably swipe  
 - pagination - load more when at bottom of recyclerview using on scroll listener
     - get pages by delta - get items after last id
-- in memory naive database backed by json
+- ~~in memory naive database backed by json~~
 - real database using room or something
 
 

@@ -1,7 +1,5 @@
 package com.clockworkant.messager
 
-import com.beust.klaxon.Json
-
 data class Message(
         val id: Long,
         val userId: Long,
