@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 class MessagesAdapter : RecyclerView.Adapter<MessageViewHolder>() {
+    private var onLastItemShown: () -> Unit = {}
 
     init {
         setHasStableIds(true)
@@ -21,6 +22,9 @@ class MessagesAdapter : RecyclerView.Adapter<MessageViewHolder>() {
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         holder.bind(items[position])
+        if(position == items.size - 1) {
+            onLastItemShown()
+        }
     }
 
     override fun getItemId(position: Int): Long {
@@ -29,15 +33,18 @@ class MessagesAdapter : RecyclerView.Adapter<MessageViewHolder>() {
 
     fun addMessages(messageViewModels: List<MessageViewModel>) {
         items.addAll(messageViewModels)
-        notifyDataSetChanged()
+        notifyItemRangeChanged(items.size - messageViewModels.size, messageViewModels.size)
     }
 
     fun getLastItemID(): Long {
-        return if(items.isEmpty()){
+        return if (items.isEmpty()) {
             -1L;
         } else {
             items.last().messageId
-
         }
+    }
+
+    fun setOnLastItemShown(callback: () -> Unit) {
+        onLastItemShown = callback
     }
 }

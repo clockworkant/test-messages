@@ -1,6 +1,7 @@
 package com.clockworkant.messager
 
 import com.beust.klaxon.Klaxon
+import kotlin.math.min
 
 interface DataRepo {
     fun getMessagesAfter(lastItemID: Long, numberOfMessagesToFetch: Int): List<Message>
@@ -27,7 +28,7 @@ class DataRepoJsonImpl(val json: String) : DataRepo {
 
         return dataWrapper.messages.subList(
                 fromIndex,
-                fromIndex + numberOfMessagesToFetch
+                min(fromIndex + numberOfMessagesToFetch, dataWrapper.messages.size) //prevent going out of bounds
         )
     }
 
