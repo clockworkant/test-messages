@@ -46,7 +46,7 @@ data class MessageViewModel(
         val name: String,
         val userImageUrl: String,
         val message: String,
-        val attachments: List<Attachment>
+        val attachments: List<Attachment>?
 )
 
 class MessagesAdapter : RecyclerView.Adapter<MessageViewHolder>() {

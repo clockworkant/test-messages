@@ -1,10 +1,12 @@
 package com.clockworkant.messager
 
+import com.beust.klaxon.Json
+
 data class Message(
         val id: Long,
         val userId: Long,
         val content: String,
-        val attachments: List<Attachment>
+        val attachments: List<Attachment> = emptyList()
 )
 
 data class Attachment(

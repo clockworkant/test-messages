@@ -2,7 +2,7 @@ package com.clockworkant.messager
 
 import android.app.Application
 
-class MessagesApplication: Application() {
+class MessagesApplication : Application() {
 
     /**
      * TODO in the future this should be using Dependency injection, something like Koin
@@ -13,6 +13,11 @@ class MessagesApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        dataRepo = DataRepoMemoryImpl()
+//        dataRepo = DataRepoMemoryImpl()
+        dataRepo = DataRepoJsonImpl(
+                assets.open("data.json").bufferedReader().use {
+                    it.readText()
+                }
+        )
     }
 }
