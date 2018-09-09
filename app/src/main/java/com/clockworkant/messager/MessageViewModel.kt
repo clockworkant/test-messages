@@ -1,6 +1,7 @@
 package com.clockworkant.messager
 
 data class MessageViewModel(
+        val messageId: Long,
         val isAdminUser: Boolean,
         val name: String,
         val userImageUrl: String,

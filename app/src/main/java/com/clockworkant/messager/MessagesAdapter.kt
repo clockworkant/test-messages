@@ -6,6 +6,10 @@ import android.view.ViewGroup
 
 class MessagesAdapter : RecyclerView.Adapter<MessageViewHolder>() {
 
+    init {
+        setHasStableIds(true)
+    }
+
     private val items: MutableList<MessageViewModel> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder =
@@ -19,8 +23,21 @@ class MessagesAdapter : RecyclerView.Adapter<MessageViewHolder>() {
         holder.bind(items[position])
     }
 
+    override fun getItemId(position: Int): Long {
+        return items[position].messageId
+    }
+
     fun addMessages(messageViewModels: List<MessageViewModel>) {
         items.addAll(messageViewModels)
         notifyDataSetChanged()
+    }
+
+    fun getLastItemID(): Long {
+        return if(items.isEmpty()){
+            -1L;
+        } else {
+            items.last().messageId
+
+        }
     }
 }

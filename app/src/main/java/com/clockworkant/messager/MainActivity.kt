@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
+private const val NumberOfMessagesToFetch = 20
+
 class MainActivity : AppCompatActivity() {
     private val messagesAdapter: MessagesAdapter = MessagesAdapter()
     private lateinit var dataRepo: DataRepo
@@ -28,10 +30,14 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        val lastItemID = messagesAdapter.getLastItemID()
+
+        val messageViewModels = dataRepo.getMessagesAfter(lastItemID, NumberOfMessagesToFetch).map {
+            MessageConverter.toViewModel(it, users.first { user -> it.userId == user.id })
+        }
+
         messagesAdapter.addMessages(
-                dataRepo.getMessages().map {
-                    MessageConverter.toViewModel(it, users.first { user -> it.userId == user.id })
-                }
+                messageViewModels
         )
     }
 }

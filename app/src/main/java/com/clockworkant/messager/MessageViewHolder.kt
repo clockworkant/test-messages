@@ -6,8 +6,8 @@ import kotlinx.android.synthetic.main.message_item.view.*
 
 class MessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(messageViewModel: MessageViewModel) {
+        itemView.user_name.text = "${messageViewModel.messageId} : ${messageViewModel.name}"
         itemView.message_content.text = messageViewModel.message
-        itemView.user_name.text = messageViewModel.name
 //        itemView.user_avatar
     }
 
