@@ -1,9 +1,11 @@
 package com.clockworkant.messages
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val NumberOfMessagesToFetch = 20
@@ -34,6 +36,18 @@ class MainActivity : AppCompatActivity() {
 
         messagesAdapter.setOnLastItemShown {
             messages_recyclerview.post {fetchAndDisplayMessages()}
+        }
+
+        messagesAdapter.setOnMessageSelected { messageId: Long ->
+            AlertDialog.Builder(this)
+                    .setTitle("Delete this message?")
+                    .setMessage("Are you sure you want to delete this message?")
+                    .setPositiveButton("OK") { _, _ ->
+                        dataRepo.deleteMessage(messageId)
+                        messagesAdapter.remove(messageId)
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
         }
 
         fetchAndDisplayMessages()

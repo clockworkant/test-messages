@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.include_body.view.*
 import kotlinx.android.synthetic.main.include_title.view.*
 import kotlinx.android.synthetic.main.message_item.view.*
 
-class MessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class MessageViewHolder(view: View, val onMessageSelected: (Long) -> Unit) : RecyclerView.ViewHolder(view) {
     private val inflater: LayoutInflater = LayoutInflater.from(view.context)
 
     fun bind(messageViewModel: MessageViewModel) {
@@ -20,6 +20,10 @@ class MessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             Glide.with(itemView)
                     .load(messageViewModel.userImageUrl)
                     .into(itemView.user_avatar)
+        }
+
+        itemView.cardView.setOnClickListener{
+            onMessageSelected(messageViewModel.messageId)
         }
 
         bindAttachments(messageViewModel)

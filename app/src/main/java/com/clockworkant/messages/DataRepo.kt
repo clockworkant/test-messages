@@ -6,9 +6,11 @@ import kotlin.math.min
 interface DataRepo {
     fun getMessagesAfter(lastItemID: Long, numberOfMessagesToFetch: Int): List<Message>
     fun getUsers(): List<User>
+    fun deleteMessage(messageId: Long)
 }
 
 class DataRepoJsonImpl(val json: String) : DataRepo {
+
     private val dataWrapper: DataWrapper
 
     init {
@@ -30,6 +32,10 @@ class DataRepoJsonImpl(val json: String) : DataRepo {
                 fromIndex,
                 min(fromIndex + numberOfMessagesToFetch, dataWrapper.messages.size) //prevent going out of bounds
         )
+    }
+
+    override fun deleteMessage(messageId: Long) {
+        //TODO unused in the memory version
     }
 
     data class DataWrapper(
