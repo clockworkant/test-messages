@@ -3,4 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="title_text">#616161</color>
+    <color name="body_text">#424242</color>
+    <color name="attachment_text">#8f8f8f</color>
+    <color name="recipient_message_bg">#f6f6f6</color>
+    <color name="admin_message_bg">#e5e5e5</color>
+    <color name="background">#f7f7f7</color>
 </resources>

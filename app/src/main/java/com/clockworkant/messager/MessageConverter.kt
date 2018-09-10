@@ -1,14 +1,21 @@
 package com.clockworkant.messager
 
-private const val adminUserId = 0L
+private const val adminUserId = 1L
 
 object MessageConverter {
 
     fun toViewModel(message: Message, user: User): MessageViewModel {
+        val isAdminUser = user.id == adminUserId
+
+        val username = if(isAdminUser) {
+            "Me" //todo this should really come from the string resources
+        } else {
+            user.name
+        }
         return MessageViewModel(
                 message.id,
-                user.id == adminUserId,
-                user.name,
+                isAdminUser,
+                username,
                 user.avatarId,
                 message.content,
                 message.attachments

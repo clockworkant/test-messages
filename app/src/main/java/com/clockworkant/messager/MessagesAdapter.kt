@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
+private const val adminUser = 1
+private const val otherUser = 2
 class MessagesAdapter : RecyclerView.Adapter<MessageViewHolder>() {
     private var onLastItemShown: () -> Unit = {}
 
@@ -13,10 +15,14 @@ class MessagesAdapter : RecyclerView.Adapter<MessageViewHolder>() {
 
     private val items: MutableList<MessageViewModel> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder =
-            MessageViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.message_item, parent, false)
-            )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
+        return when(viewType){
+            adminUser ->
+                MessageViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.message_item_admin, parent, false))
+            else ->
+                MessageViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.message_item, parent, false))
+        }
+    }
 
     override fun getItemCount(): Int = items.size
 
@@ -29,6 +35,14 @@ class MessagesAdapter : RecyclerView.Adapter<MessageViewHolder>() {
 
     override fun getItemId(position: Int): Long {
         return items[position].messageId
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if(items[position].isAdminUser){
+            adminUser
+        } else {
+            otherUser
+        }
     }
 
     fun addMessages(messageViewModels: List<MessageViewModel>) {
