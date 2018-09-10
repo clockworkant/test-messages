@@ -18,7 +18,7 @@ object MessageConverter {
                 username,
                 user.avatarId,
                 message.content,
-                message.attachments
+                message.attachments.toMutableList()
         )
     }
 }

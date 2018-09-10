@@ -6,5 +6,5 @@ data class MessageViewModel(
         val name: String,
         val userImageUrl: String,
         val message: String,
-        val attachments: List<Attachment>
+        val attachments: MutableList<Attachment>
 )

@@ -7,9 +7,11 @@ interface DataRepo {
     fun getMessagesAfter(lastItemID: Long, numberOfMessagesToFetch: Int): List<Message>
     fun getUsers(): List<User>
     fun deleteMessage(messageId: Long)
+    fun deleteAttachment(attachmentId: String)
 }
 
 class DataRepoJsonImpl(val json: String) : DataRepo {
+
 
     private val dataWrapper: DataWrapper
 
@@ -36,6 +38,10 @@ class DataRepoJsonImpl(val json: String) : DataRepo {
 
     override fun deleteMessage(messageId: Long) {
         //TODO unused in the memory version
+    }
+
+    override fun deleteAttachment(attachmentId: String) {
+        //TODO not implemented in this impl
     }
 
     data class DataWrapper(

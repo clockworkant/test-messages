@@ -50,6 +50,18 @@ class MainActivity : AppCompatActivity() {
                     .show()
         }
 
+        messagesAdapter.setOnAttachmentSelected { messageId: Long, attachmentId: String ->
+            AlertDialog.Builder(this)
+                    .setTitle("Delete this Attachment?")
+                    .setMessage("Are you sure you want to delete this attachment?")
+                    .setPositiveButton("OK") { _, _ ->
+                        dataRepo.deleteAttachment(attachmentId)
+                        messagesAdapter.removeAttachment(messageId, attachmentId)
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
+        }
+
         fetchAndDisplayMessages()
     }
 

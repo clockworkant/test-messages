@@ -9,7 +9,12 @@ import kotlinx.android.synthetic.main.include_body.view.*
 import kotlinx.android.synthetic.main.include_title.view.*
 import kotlinx.android.synthetic.main.message_item.view.*
 
-class MessageViewHolder(view: View, val onMessageSelected: (Long) -> Unit) : RecyclerView.ViewHolder(view) {
+class MessageViewHolder(
+        view: View,
+        val onMessageSelected: (Long) -> Unit,
+        val onAttachmentSelected: (messageId: Long, attachmentId: String) -> Unit)
+    : RecyclerView.ViewHolder(view) {
+
     private val inflater: LayoutInflater = LayoutInflater.from(view.context)
 
     fun bind(messageViewModel: MessageViewModel) {
@@ -22,7 +27,7 @@ class MessageViewHolder(view: View, val onMessageSelected: (Long) -> Unit) : Rec
                     .into(itemView.user_avatar)
         }
 
-        itemView.cardView.setOnClickListener{
+        itemView.cardView.setOnClickListener {
             onMessageSelected(messageViewModel.messageId)
         }
 
@@ -31,10 +36,14 @@ class MessageViewHolder(view: View, val onMessageSelected: (Long) -> Unit) : Rec
 
     private fun bindAttachments(messageViewModel: MessageViewModel) {
         itemView.attachments.removeAllViews()
-        messageViewModel.attachments.forEach {
+        messageViewModel.attachments.forEach { attachment ->
             val attachmentView = inflater.inflate(R.layout.include_attachment_view, itemView.attachments, false)
-            attachmentView.attachment_name.text = it.title
-            Glide.with(itemView).load(it.thumbnailUrl).into(attachmentView.attachment_image)
+            attachmentView.attachment_name.text = attachment.title
+            Glide.with(itemView).load(attachment.thumbnailUrl).into(attachmentView.attachment_image)
+
+            attachmentView.setOnClickListener {
+                onAttachmentSelected(messageViewModel.messageId, attachment.id)
+            }
 
             itemView.attachments.addView(attachmentView)
         }
