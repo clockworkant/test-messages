@@ -13,19 +13,21 @@ Requirements:
 
 Todo
 ===
-- Rename package to correct spelling of ;messenger
+- fetch items on background thread
+- Delete action - remove item from db and from list. Probably swipe 
+- real database using room or something
+
+- ~~Attachments card view~~
+- ~~Rename package to correct spelling of ;messenger~~
 - ~~Build graphical UI to without data~~
     - ~~Separate user 0 rows from other users~~
         - ~~Avatar for non 0 user~~
         - ~~Circle image view?~~
         - ~~Card interface~~
         - ~~attachments~~
-- fetch items on background thread
-- Delete action - remove item from db and from list. Probably swipe  
 - ~~pagination - load more when at bottom of recyclerview using on scroll listener~~
     - ~~get pages by delta - get items after last id~~
 - ~~in memory naive database backed by json~~
-- real database using room or something
 
 Issues/conflicting details
 ===

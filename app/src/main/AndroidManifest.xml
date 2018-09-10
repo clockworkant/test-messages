@@ -13,7 +13,9 @@
             android:theme="@style/AppTheme"
             android:name="com.clockworkant.messages.MessagesApplication"
             >
-        <activity android:name="com.clockworkant.messages.MainActivity">
+        <activity
+                android:name="com.clockworkant.messages.MainActivity"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
