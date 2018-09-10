@@ -1,4 +1,4 @@
-package com.clockworkant.messager
+package com.clockworkant.messages
 
 private const val adminUserId = 1L
 

@@ -1,4 +1,4 @@
-package com.clockworkant.messager
+package com.clockworkant.messages
 
 data class MessageViewModel(
         val messageId: Long,

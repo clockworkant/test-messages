@@ -1,4 +1,4 @@
-package com.clockworkant.messager
+package com.clockworkant.messages
 
 import android.app.Application
 

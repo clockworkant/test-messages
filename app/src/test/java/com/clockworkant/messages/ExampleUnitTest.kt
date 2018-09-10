@@ -1,4 +1,4 @@
-package com.clockworkant.messager
+package com.clockworkant.messages
 
 import org.junit.Test
 

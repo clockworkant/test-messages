@@ -14,10 +14,10 @@ Requirements:
 Todo
 ===
 - Rename package to correct spelling of ;messenger
-- Build graphical UI to without data
-    - Separate user 0 rows from other users
+- ~~Build graphical UI to without data~~
+    - ~~Separate user 0 rows from other users~~
         - ~~Avatar for non 0 user~~
-        - Circle image view?
+        - ~~Circle image view?~~
         - ~~Card interface~~
         - ~~attachments~~
 - fetch items on background thread
