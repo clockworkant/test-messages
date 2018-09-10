@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:textColor="@color/body_text"
-        android:id="@+id/message_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="It was a magical journey, I'm glad I travelled to the centre of the earth."
-        tools:showIn="@layout/message_item_admin"/>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/message_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="@color/body_text"
+    tools:showIn="@layout/message_item_admin"
+    tools:text="It was a magical journey, I'm glad I travelled to the centre of the earth." />
