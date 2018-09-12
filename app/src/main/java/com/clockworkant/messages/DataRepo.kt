@@ -1,7 +1,8 @@
 package com.clockworkant.messages
 
+import android.content.Context
 import com.beust.klaxon.Klaxon
-import kotlin.math.min
+import com.clockworkant.messages.room.MessagesDatabase
 
 interface DataRepo {
     fun getMessagesAfter(lastItemID: Long, numberOfMessagesToFetch: Int): List<Message>
@@ -10,41 +11,47 @@ interface DataRepo {
     fun deleteAttachment(attachmentId: String)
 }
 
-class DataRepoJsonImpl(val json: String) : DataRepo {
-
-
-    private val dataWrapper: DataWrapper
+class DataRepoRoomImpl(val context: Context) : DataRepo {
+    private val db = MessagesDatabase.getInstance(context)
 
     init {
-        dataWrapper = Klaxon().parse<DataWrapper>(json)!!
+        db?.let {
+            if (it.userDao().getAllUsers().isEmpty()) {
+                populateDatabaseFromJson(it)
+            }
+        }
     }
 
-    override fun getUsers(): List<User> = dataWrapper.users
+    private fun populateDatabaseFromJson(it: MessagesDatabase) {
+        val jsonString = context.assets.open("data.json").bufferedReader().use {
+            it.readText()
+        }
+        val dataWrapper = Klaxon().parse<DataWrapper>(jsonString)!!
+        it.userDao().insert(dataWrapper.users)
+        it.messagesDao().insert(dataWrapper.messages)
+    }
 
     override fun getMessagesAfter(lastItemID: Long, numberOfMessagesToFetch: Int): List<Message> {
-        var fromIndex = dataWrapper.messages.indexOfLast { it.id == lastItemID }
-        if (fromIndex == -1) {
-            fromIndex = 0
-        } else {
-            //increment so we get the next data range
-            fromIndex++
-        }
+        if (db == null) return emptyList()
+        return db.messagesDao().getMessagesAfter(lastItemID, numberOfMessagesToFetch)
+    }
 
-        return dataWrapper.messages.subList(
-                fromIndex,
-                min(fromIndex + numberOfMessagesToFetch, dataWrapper.messages.size) //prevent going out of bounds
-        )
+    override fun getUsers(): List<User> {
+        if (db == null) return emptyList()
+        return db.userDao().getAllUsers()
     }
 
     override fun deleteMessage(messageId: Long) {
-        //TODO unused in the memory version
+        db?.let {
+            db.messagesDao().delete(db.messagesDao().getMessageForId(messageId))
+        }
     }
 
     override fun deleteAttachment(attachmentId: String) {
-        //TODO not implemented in this impl
+        //TODO delete attachment
     }
 
-    data class DataWrapper(
+    private data class DataWrapper(
             val messages: List<Message>,
             val users: List<User>
     )

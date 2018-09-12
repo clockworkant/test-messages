@@ -1,6 +1,7 @@
 package com.clockworkant.messages
 
 import android.app.Application
+import com.facebook.stetho.Stetho
 
 class MessagesApplication : Application() {
 
@@ -13,10 +14,9 @@ class MessagesApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        dataRepo = DataRepoJsonImpl(
-                assets.open("data.json").bufferedReader().use {
-                    it.readText()
-                }
-        )
+
+        Stetho.initializeWithDefaults(this)
+
+        dataRepo = DataRepoRoomImpl(applicationContext)
     }
 }
